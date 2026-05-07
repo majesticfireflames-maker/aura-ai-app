@@ -3265,7 +3265,7 @@ setUserProfile(userId, userName, userProfile = null) {
   // In AgentService class - NOT AIService
   // In AgentService class, update the getAgentResponse method:
 async getAgentResponse(agentId, userMessage, userId = null) {
-const ye = userMessage ? userMessage.toLowerCase() : ''; 
+/*const ye = userMessage ? userMessage.toLowerCase() : ''; */
   console.log(`📨 [AgentService] Getting response from ${agentId} for: "${userMessage.substring(0, 30)}..."`);
 
     // ✅ NUCLEAR OPTION: INTERCEPT AND ANSWER DIRECTLY
@@ -3953,6 +3953,7 @@ class NutritionAgentClass extends BaseAgent {
   }
 
   getNutritionResponse(message) {
+      const lowerMessage = message ? message.toLowerCase() : ''; 
     const lowerMsg = (message || '').toLowerCase();
 
     if (lowerMsg.includes('help') || lowerMsg.includes('nutrition')) {
@@ -4118,6 +4119,7 @@ class FitnessAgentClass extends BaseAgent {
     return { name: exerciseName, duration: duration };
   }
   getFitnessResponse(message) {
+      const lowerMessage = message ? message.toLowerCase() : ''; 
     const lowerMsg = (message || '').toLowerCase();
 
     if (lowerMsg.includes('food') && lowerMsg.includes('love')) {
@@ -4430,6 +4432,7 @@ class MentalWellnessAgentClass extends BaseAgent {
   }
 
   getMentalResponse(message) {
+      const lowerMessage = message ? message.toLowerCase() : ''; 
     const lowerMsg = (message || '').toLowerCase();
 
     if (lowerMsg.includes('food') && lowerMsg.includes('love')) {
@@ -4689,6 +4692,7 @@ class CreativeAgentClass extends BaseAgent {
   }
 
   getCreativeResponse(message) {
+      const lowerMessage = message ? message.toLowerCase() : ''; 
     const lowerMsg = (message || '').toLowerCase();
 
     if (lowerMsg.includes('food') && lowerMsg.includes('love')) {
@@ -4780,6 +4784,7 @@ async receiveMessage(message) {
 }
 
   getGeneralResponse(message) {
+      const lowerMessage = message ? message.toLowerCase() : ''; 
     const lowerMsg = (message || '').toLowerCase();
 
     if (lowerMsg.includes('food') && lowerMsg.includes('love')) {
