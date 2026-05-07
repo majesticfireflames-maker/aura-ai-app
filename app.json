@@ -4,7 +4,7 @@
     "slug": "aura-ai",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/auralogo.jpg",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
