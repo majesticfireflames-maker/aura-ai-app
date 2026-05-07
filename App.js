@@ -3265,6 +3265,7 @@ setUserProfile(userId, userName, userProfile = null) {
   // In AgentService class - NOT AIService
   // In AgentService class, update the getAgentResponse method:
 async getAgentResponse(agentId, userMessage, userId = null) {
+const ye = userMessage ? userMessage.toLowerCase() : ''; 
   console.log(`📨 [AgentService] Getting response from ${agentId} for: "${userMessage.substring(0, 30)}..."`);
 
     // ✅ NUCLEAR OPTION: INTERCEPT AND ANSWER DIRECTLY

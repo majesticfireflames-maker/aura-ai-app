@@ -25,6 +25,9 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
+       "build": {
+        "minify": false
+      }
       "favicon": "./assets/icon.png"
     }
   }
