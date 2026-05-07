@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "this-one-works",
-    "slug": "snack-648653f8-8f1d-4ade-9704-8c02581b0ef1",
+    "name": "AURA AI",
+    "slug": "aura-ai",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/auralogo.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
