@@ -10237,3 +10237,14 @@ const testUsernameFunctionality = () => {
   }
 };" " 
 "// v2 - favicon update" 
+ 
+  useEffect(() =
+    setTimeout(() =
+      const nav = document.querySelector('[style*=\"height: 70px\"]'); 
+        nav.parentElement.style.paddingBottom = '0'; 
+        nav.parentElement.style.marginBottom = '0'; 
+      } 
+      document.querySelectorAll('div:empty').forEach(el => { 
+      }); 
+    }, 100); 
+  }, []); 
