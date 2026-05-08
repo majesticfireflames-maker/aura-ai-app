@@ -27,6 +27,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Linking } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
+
+
 // Import services
 import { AIService } from './aiservices';
 import { memoryManager } from './memory';
@@ -40,6 +42,29 @@ import { estimateFoodCalories, formatCalories, getNutritionSummary } from './CAL
 
 
 // ==================== UTILITY FUNCTIONS & CONSTANTS ====================
+
+// Add this at the top of your file or in a global stylesheet
+const globalStyles = StyleSheet.create({
+  webContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    width: '100vw',
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  webContent: {
+    flex: 1,
+    overflowY: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    paddingBottom: 0, // Ensure no extra padding
+  },
+  webNav: {
+    flexShrink: 0, // Prevent nav from shrinking
+  }
+});
+
+
 const { width, height } = Dimensions.get('window');
 const isSmallScreen = width < 375;
 
@@ -1242,14 +1267,25 @@ const Navigation = ({ activeSection, onNavigate, settings }) => {
 
   const colors = getThemeColors(settings.theme);
 
+  const isWeb = Platform.OS === 'web';
   return (
-    <View
-      style={[
-        stylesNav.container,
-        {
-          height: 70,
-          backgroundColor: colors.bgSecondary,
-          borderTopColor: colors.borderPrimary,
+   <View
+  style={[
+    stylesNav.container,
+    {
+      height: 70,
+      backgroundColor: colors.bgSecondary,
+      borderTopColor: colors.borderPrimary,
+    ...(isWeb ? {
+            position: 'relative',
+            width: '100%',
+            borderTopWidth: 1,
+          } : {
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+          })
         },
       ]}>
       {navItems.map((item) => {
@@ -9984,6 +10020,21 @@ export default function App() {
   const [settings, setSettings] = useState(defaultSettings);
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const isWeb = Platform.OS === 'web';
+
+return (
+  <View style={isWeb ? globalStyles.webContainer : [stylesApp.container, { backgroundColor: colors.bgPrimary }]}>
+    <StatusBar ... />
+    <View style={isWeb ? globalStyles.webContent : stylesApp.content}>
+      {renderContent()}
+    </View>
+    <View style={isWeb && globalStyles.webNav}>
+      <Navigation ... />
+    </View>
+  </View>
+);
+
   useEffect(() => {
     initializeApp();
   }, []);
@@ -10161,38 +10212,61 @@ const handleLogin = (user = null, userProfile = null) => {
   }
 
   const colors = getThemeColors(settings.theme);
+  const isWeb = Platform.OS === 'web';
 
   return (
-    <SafeAreaView
-      style={[stylesApp.container, { backgroundColor: colors.bgPrimary }]}>
+  <View
+    style={[
+      stylesApp.container, 
+      { 
+        backgroundColor: colors.bgPrimary,
+        // For web, use flex column layout
+        ...(isWeb && {
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100vh',
+          overflow: 'hidden',
+        })
+      }
+    ]}>
       <StatusBar
         barStyle={settings.theme === 'light' ? 'dark-content' : 'light-content'}
         backgroundColor={colors.bgPrimary}
       />
-      <View style={stylesApp.content}>{renderContent()}</View>
-      <Navigation
-        activeSection={
-          currentSection === 'home'
-            ? 'home'
-            : currentSection === 'settings'
-            ? 'settings'
-            : [
-                'general',
-                'creative',
-                'planner',
-                'finance',
-                'nutrition',
-                'fitness',
-                'mental',
-              ].includes(currentSection)
-            ? 'agents'
-            : currentSection
-        }
-        onNavigate={handleNavigation}
-        settings={settings}
-      />
-    </SafeAreaView>
-  );
+    <View style={[
+      stylesApp.content,
+      // For web, make content scrollable and take remaining space
+      isWeb && {
+        flex: 1,
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+      }
+    ]}>
+      {renderContent()}
+    </View>
+    <Navigation
+      activeSection={
+        currentSection === 'home'
+          ? 'home'
+          : currentSection === 'settings'
+          ? 'settings'
+          : [
+              'general',
+              'creative',
+              'planner',
+              'finance',
+              'nutrition',
+              'fitness',
+              'mental',
+            ].includes(currentSection)
+          ? 'agents'
+          : currentSection
+      }
+      onNavigate={handleNavigation}
+      settings={settings}
+    />
+  </View>
+);
 }
 
 const stylesApp = StyleSheet.create({
