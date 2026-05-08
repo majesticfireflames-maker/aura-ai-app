@@ -1,0 +1,4 @@
+/* NUCLEAR - FORCE NAV TO BOTTOM */ 
+body { margin: 0 !important; padding: 0 !important; position: relative !important; min-height: 100vh !important; } 
+#root { min-height: 100vh !important; display: flex !important; flex-direction: column !important; } 
+div[style*="height: 70px"] { margin-top: auto !important; position: sticky !important; bottom: 0 !important; top: auto !important; } 
