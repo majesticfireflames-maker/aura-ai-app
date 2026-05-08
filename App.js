@@ -10020,21 +10020,6 @@ export default function App() {
   const [settings, setSettings] = useState(defaultSettings);
   const [isLoading, setIsLoading] = useState(true);
 
-
-  const isWeb = Platform.OS === 'web';
-
-return (
-  <View style={isWeb ? globalStyles.webContainer : [stylesApp.container, { backgroundColor: colors.bgPrimary }]}>
-    <StatusBar ... />
-    <View style={isWeb ? globalStyles.webContent : stylesApp.content}>
-      {renderContent()}
-    </View>
-    <View style={isWeb && globalStyles.webNav}>
-      <Navigation ... />
-    </View>
-  </View>
-);
-
   useEffect(() => {
     initializeApp();
   }, []);
@@ -10069,31 +10054,28 @@ return (
     }
   };
 
- // In App.js, modify the handleLogin function:
-const handleLogin = (user = null, userProfile = null) => {
-  console.log('✅ Login successful');
-  
-  // Set user ID in agent service
-  if (supabaseManager.userId) {
-    agentService.setUserId(supabaseManager.userId);
+  const handleLogin = (user = null, userProfile = null) => {
+    console.log('✅ Login successful');
     
-    // ✅ CRITICAL: Set user profile in agent service
-    if (userProfile || supabaseManager.userProfile) {
-      const userName = userProfile?.name || supabaseManager.userProfile?.name;
-      if (userName) {
-        agentService.setUserProfile(
-          supabaseManager.userId, 
-          userName, 
-          userProfile || supabaseManager.userProfile
-        );
-        console.log(`👤 Username "${userName}" passed to agents`);
+    if (supabaseManager.userId) {
+      agentService.setUserId(supabaseManager.userId);
+      
+      if (userProfile || supabaseManager.userProfile) {
+        const userName = userProfile?.name || supabaseManager.userProfile?.name;
+        if (userName) {
+          agentService.setUserProfile(
+            supabaseManager.userId, 
+            userName, 
+            userProfile || supabaseManager.userProfile
+          );
+          console.log(`👤 Username "${userName}" passed to agents`);
+        }
       }
     }
-  }
-  
-  setIsAuthenticated(true);
-  setCurrentSection('home');
-};
+    
+    setIsAuthenticated(true);
+    setCurrentSection('home');
+  };
 
   const handleLogout = async () => {
     console.log('🚪 Logging out...');
@@ -10215,58 +10197,56 @@ const handleLogin = (user = null, userProfile = null) => {
   const isWeb = Platform.OS === 'web';
 
   return (
-  <View
-    style={[
-      stylesApp.container, 
-      { 
-        backgroundColor: colors.bgPrimary,
-        // For web, use flex column layout
-        ...(isWeb && {
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100vh',
-          overflow: 'hidden',
-        })
-      }
-    ]}>
+    <View
+      style={[
+        stylesApp.container, 
+        { 
+          backgroundColor: colors.bgPrimary,
+          ...(isWeb && {
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100vh',
+            overflow: 'hidden',
+          })
+        }
+      ]}>
       <StatusBar
         barStyle={settings.theme === 'light' ? 'dark-content' : 'light-content'}
         backgroundColor={colors.bgPrimary}
       />
-    <View style={[
-      stylesApp.content,
-      // For web, make content scrollable and take remaining space
-      isWeb && {
-        flex: 1,
-        overflowY: 'auto',
-        WebkitOverflowScrolling: 'touch',
-      }
-    ]}>
-      {renderContent()}
+      <View style={[
+        stylesApp.content,
+        isWeb && {
+          flex: 1,
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+        }
+      ]}>
+        {renderContent()}
+      </View>
+      <Navigation
+        activeSection={
+          currentSection === 'home'
+            ? 'home'
+            : currentSection === 'settings'
+            ? 'settings'
+            : [
+                'general',
+                'creative',
+                'planner',
+                'finance',
+                'nutrition',
+                'fitness',
+                'mental',
+              ].includes(currentSection)
+            ? 'agents'
+            : currentSection
+        }
+        onNavigate={handleNavigation}
+        settings={settings}
+      />
     </View>
-    <Navigation
-      activeSection={
-        currentSection === 'home'
-          ? 'home'
-          : currentSection === 'settings'
-          ? 'settings'
-          : [
-              'general',
-              'creative',
-              'planner',
-              'finance',
-              'nutrition',
-              'fitness',
-              'mental',
-            ].includes(currentSection)
-          ? 'agents'
-          : currentSection
-      }
-      onNavigate={handleNavigation}
-      settings={settings}
-    />
-  </View>
-);
+  );
 }
 
 const stylesApp = StyleSheet.create({
@@ -10286,39 +10266,3 @@ const stylesApp = StyleSheet.create({
     fontSize: 16,
   },
 });
-// Add this to your App component or somewhere accessible:
-const testUsernameFunctionality = () => {
-  console.log('🧪 Testing username functionality...');
-  
-  // Check all agents
-  Object.entries(agentService.agents).forEach(([id, agent]) => {
-    console.log(`${id}:`, {
-      hasUserId: !!agent.currentUserId,
-      hasUserName: !!agent.currentUserName,
-      userName: agent.currentUserName || 'Not set',
-      userId: agent.currentUserId ? agent.currentUserId.substring(0, 8) + '...' : 'None'
-    });
-  });
-  
-  // Test a direct response
-  const generalAgent = agentService.agents.general;
-  if (generalAgent && generalAgent.currentUserName) {
-    console.log(`🎯 Testing greeting for: ${generalAgent.currentUserName}`);
-    generalAgent.getEnhancedResponse("Hello! How can I help you?")
-      .then(response => {
-        console.log('Personalized greeting:', response.substring(0, 50) + '...');
-      });
-  }
-};" " 
-"// v2 - favicon update" 
- 
-  useEffect(() =
-    setTimeout(() =
-      const nav = document.querySelector('[style*=\"height: 70px\"]'); 
-        nav.parentElement.style.paddingBottom = '0'; 
-        nav.parentElement.style.marginBottom = '0'; 
-      } 
-      document.querySelectorAll('div:empty').forEach(el => { 
-      }); 
-    }, 100); 
-  }, []); 
