@@ -1,0 +1,2 @@
+body, html, #root { margin: 0 !important; padding: 0 !important; min-height: 100vh !important; height: 100% !important; background: #0F172A !important; } 
+#root { display: block !important; position: relative !important; width: 100%% !important; } 
