@@ -1,0 +1,3 @@
+/* FIX BOTTOM NAVIGATION BAR */ 
+div[style*="height: 70px"] { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 100 !important; } 
+body { padding-bottom: 70px !important; } 
